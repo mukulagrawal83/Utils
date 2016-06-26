@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://wsvalueobj.common.prepaid.webservices.cortex.com"
+            xmlns="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns2="http://wsvalueobj.common.prepaid.webservices.cortex.com"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:include schemaLocation="RqstInfoSchema.xsd"/>
+
+    <element name="cardListEnquiry" type="tns2:cardListEnquiryRequest"/>
+    <element name="cardListEnquiryResponse" type="tns2:cardListEnquiryResponse"/>
+
+    <complexType name="cardListEnquiryRequest">
+        <sequence>
+            <element name="CardListEnquiryRqstInfo" type="tns2:CardListEnquiryRqstInfo"/>
+        </sequence>
+        <attribute name="encodingStyle" type="xsd:string" use="optional" default="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </complexType>
+
+    <complexType name="cardListEnquiryResponse">
+        <sequence>
+            <element name="CardListEnquiryRspsInfo" type="tns2:CardListEnquiryRspsInfo"/>
+        </sequence>
+        <attribute name="encodingStyle" type="xsd:string" use="optional" default="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </complexType>
+
+
+    <xsd:complexType name="CardListEnquiryRqstInfo">
+        <xsd:complexContent>
+            <xsd:extension base="tns2:RqstInfo">
+                <xsd:sequence>
+                    <xsd:element name="messageID" type="xsd:int"/>
+                    <xsd:element name="instCode" type="xsd:string"/>
+                    <xsd:element name="txnType" type="xsd:string"/>
+                    <xsd:element name="localDate" type="xsd:date"/>
+                    <xsd:element name="localTime" type="xsd:long"/>
+                    <xsd:element name="loginID" nillable="true" type="xsd:string"/>
+                    <xsd:element name="PAN" nillable="true" type="xsd:string"/>
+                    <xsd:element name="cardID" nillable="true" type="xsd:string"/>
+                    <xsd:element name="accno" nillable="true" type="xsd:string"/>
+                    <xsd:element name="currCode" nillable="true" type="xsd:string"/>
+                    <xsd:element name="itemSrc" nillable="true" type="xsd:short"/>
+                    <xsd:element name="userdata1" nillable="true" type="xsd:string"/>
+					<xsd:element name="additionalCustDet" nillable="true" xmlns:urn="http://www.w3.org/2001/XMLSchema-instance" urn:type="tns2:ArrayOf_tns3_AdditionalDetails"/>
+					<xsd:element name="additionalAccDet" nillable="true" xmlns:urn="http://www.w3.org/2001/XMLSchema-instance" urn:type="tns2:ArrayOf_tns3_AdditionalDetails"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="CardListInfo">
+        <xsd:sequence>
+            <xsd:element name="PAN" type="xsd:string"/>
+            <xsd:element name="cardID" nillable="true" type="xsd:string"/>
+            <xsd:element name="expDate" type="xsd:date"/>
+            <xsd:element name="currCode" type="xsd:string"/>
+            <xsd:element name="statCode" type="xsd:string"/>
+            <xsd:element name="crdProduct" type="xsd:string"/>
+            <xsd:element name="program" nillable="true" type="xsd:string"/>
+            <xsd:element name="designRef" nillable="true" type="xsd:string"/>
+            <xsd:element name="avlBal" type="xsd:double"/>
+            <xsd:element name="blkAmt" type="xsd:double"/>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="embossName" type="xsd:string"/>
+            <xsd:element name="custType" type="xsd:int"/>
+            <xsd:element name="accno" nillable="true" type="xsd:string"/>
+            <xsd:element name="pinTries" type="xsd:int"/>
+			<xsd:element name="additionalCustDet" nillable="true" xmlns:urn="http://www.w3.org/2001/XMLSchema-instance" urn:type="tns2:ArrayOf_tns3_AdditionalDetails"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CardListEnquiryRspsInfo">
+        <xsd:sequence>
+            <xsd:element name="messageID" type="xsd:int"/>
+            <xsd:element name="instCode" type="xsd:string"/>
+            <xsd:element name="txnType" nillable="true" type="xsd:string"/>
+            <xsd:element name="localDate" nillable="true" type="xsd:date"/>
+            <xsd:element name="localTime" type="xsd:long"/>
+            <xsd:element name="purchaserCardList" nillable="true" type="tns2:ArrayOf_tns1_CardListInfo"/>
+            <xsd:element name="cardHolderCardList" nillable="true" type="tns2:ArrayOf_tns1_CardListInfo"/>
+            <xsd:element name="loaderCardList" nillable="true" type="tns2:ArrayOf_tns1_CardListInfo"/>
+            <xsd:element name="loginID" nillable="true" type="xsd:string"/>
+            <xsd:element name="PAN" nillable="true" type="xsd:string"/>
+            <xsd:element name="cardID" nillable="true" type="xsd:string"/>
+            <xsd:element name="accno" nillable="true" type="xsd:string"/>
+            <xsd:element name="currCode" nillable="true" type="xsd:string"/>
+            <xsd:element name="userdata1" nillable="true" type="xsd:string"/>
+            <xsd:element name="sysDate" nillable="true" type="xsd:date"/>
+            <xsd:element name="actionCode" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ArrayOf_tns1_CardListInfo">
+        <xsd:sequence>
+            <xsd:element name="CardListInfo" type="tns2:CardListInfo" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <complexType name="ArrayOf_tns3_AdditionalDetails" >
+        <xsd:sequence>
+            <xsd:element name="AdditionalDetails" type="tns2:AdditionalDetails" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </complexType>
+
+    <xsd:complexType name="AdditionalDetails">
+        <xsd:sequence>
+            <xsd:element name="reference" nillable="true" type="xsd:string"/>
+            <xsd:element name="value" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns2="http://wsvalueobj.common.prepaid.webservices.cortex.com"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://wsvalueobj.common.prepaid.webservices.cortex.com">
+	<include schemaLocation="RqstInfoSchema.xsd"/>
+	<element name="cardApplication" type="tns2:cardApplicationRequest"/>
+	<element name="cardApplicationResponse" type="tns2:cardApplicationResponse"/>
+	<complexType name="cardApplicationRequest">
+		<sequence>
+			<element name="CardApplicationRqstInfo" type="tns2:CardApplicationRqstInfo"/>
+            <element name="cardDetails" minOccurs="0" type="tns2:CardDetails_type"/>
+		</sequence>
+		<attribute name="encodingStyle" type="xsd:string" use="optional" default="http://schemas.xmlsoap.org/soap/encoding/"/>
+	</complexType>
+	<complexType name="cardApplicationResponse">
+		<sequence>
+			<element name="CardApplicationRspsInfo" type="tns2:CardApplicationRspsInfo"/>
+		</sequence>
+		<attribute name="encodingStyle" type="xsd:string" use="optional" default="http://schemas.xmlsoap.org/soap/encoding/"/>
+	</complexType>
+	<complexType name="CardApplicationRqstInfo">
+		<complexContent>
+			<extension base="tns2:RqstInfo">
+				<sequence>
+					<element name="messageID" type="xsd:int"/>
+					<element name="instCode" type="xsd:string"/>
+					<element name="txnType" type="xsd:string"/>
+					<element name="authMethod" type="xsd:string" nillable="true"/>
+					<element name="PAN" type="xsd:string" nillable="true"/>
+					<element name="cardID" type="xsd:string" nillable="true"/>
+					<element name="DOB" type="xsd:date" nillable="true"/>
+					<element name="track2" type="xsd:string" nillable="true"/>
+					<element name="CVV" type="xsd:string" nillable="true"/>
+					<element name="accessCode" type="xsd:string" nillable="true"/>
+					<element name="lastName" type="xsd:string" nillable="true"/>
+					<element name="localDate" type="xsd:date"/>
+					<element name="localTime" type="xsd:long"/>
+					<element name="loginID" type="xsd:string" nillable="true"/>
+					<element name="crdprogram" type="xsd:string" nillable="true"/>
+					<element name="crddesign" type="xsd:string" nillable="true"/>
+					<element name="carrierPAN" type="xsd:string" nillable="true"/>
+					<element name="stockNoStart" type="xsd:int" nillable="true"/>
+					<element name="currCode" type="xsd:string" nillable="true"/>
+					<element name="crdproduct" type="xsd:string" nillable="true"/>
+					<element name="amtLoad" type="xsd:double" nillable="true"/>
+					<element name="expDate" type="xsd:date" nillable="true"/>
+					<element name="lang" type="xsd:string" nillable="true"/>
+					<element name="pin" type="xsd:string" nillable="true"/>
+					<element name="cardName" type="xsd:string" nillable="true"/>
+					<element name="noOfCards" type="xsd:int" nillable="true"/>
+					<element name="itemSrc" type="xsd:short" nillable="true"/>
+					<element name="secDet" type="tns2:ArrayOf_tns3_SecurityDetailsInfo" nillable="true"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CardDetailsInfo">
+		<sequence>
+			<element name="result" type="xsd:string" nillable="true"/>
+			<element name="PAN" type="xsd:string" nillable="true"/>
+			<element name="cardID" type="xsd:string" nillable="true"/>
+			<element name="DOB" type="xsd:date" nillable="true"/>
+			<element name="lastName" type="xsd:string" nillable="true"/>
+			<element name="title" type="xsd:string" nillable="true"/>
+			<element name="firstName" type="xsd:string" nillable="true"/>
+			<element name="addrL1" type="xsd:string" nillable="true"/>
+			<element name="addrL2" type="xsd:string" nillable="true"/>
+			<element name="addrL3" type="xsd:string" nillable="true"/>
+			<element name="city" type="xsd:string" nillable="true"/>
+			<element name="county" type="xsd:string" nillable="true"/>
+			<element name="postcode" type="xsd:string" nillable="true"/>
+			<element name="country" type="xsd:string" nillable="true"/>
+			<element name="workAddrL1" type="xsd:string" nillable="true"/>
+			<element name="workAddrL2" type="xsd:string" nillable="true"/>
+			<element name="workAddrL3" type="xsd:string" nillable="true"/>
+			<element name="workCity" type="xsd:string" nillable="true"/>
+			<element name="workCounty" type="xsd:string" nillable="true"/>
+			<element name="workCountry" type="xsd:string" nillable="true"/>
+			<element name="workPostcode" type="xsd:string" nillable="true"/>
+			<element name="workTel" type="xsd:string" nillable="true"/>
+			<element name="pobox" type="xsd:string" nillable="true"/>
+			<element name="tel" type="xsd:string" nillable="true"/>
+			<element name="email" type="xsd:string" nillable="true"/>
+			<element name="fax" type="xsd:string" nillable="true"/>
+			<element name="mobTel" type="xsd:string" nillable="true"/>
+			<element name="dlvTitle" type="xsd:string" nillable="true"/>
+			<element name="dlvFirstName" type="xsd:string" nillable="true"/>
+			<element name="dlvLastName" type="xsd:string" nillable="true"/>
+			<element name="dlvAddrL1" type="xsd:string" nillable="true"/>
+			<element name="dlvAddrL2" type="xsd:string" nillable="true"/>
+			<element name="dlvAddrL3" type="xsd:string" nillable="true"/>
+			<element name="dlvCity" type="xsd:string" nillable="true"/>
+			<element name="dlvPostcode" type="xsd:string" nillable="true"/>
+			<element name="dlvCountry" type="xsd:string" nillable="true"/>
+			<element name="dlvCounty" type="xsd:string" nillable="true"/>
+			<element name="dlvTel" type="xsd:string" nillable="true"/>
+			<element name="dlvEffDate" type="xsd:date" nillable="true"/>
+			<element name="dlvExpDate" type="xsd:date" nillable="true"/>
+			<element name="maritalStatus" type="xsd:string" nillable="true"/>
+			<element name="sex" type="xsd:string" nillable="true"/>
+			<element name="statCode" type="xsd:string" nillable="true"/>
+			<element name="crdproduct" type="xsd:string" nillable="true"/>
+			<element name="custCode" type="xsd:string" nillable="true"/>
+			<element name="accno" type="xsd:string" nillable="true"/>
+			<element name="currCode" type="xsd:string" nillable="true"/>
+			<element name="expDate" type="xsd:date" nillable="true"/>
+			<element name="effDate" type="xsd:date" nillable="true"/>
+			<element name="svccode" type="xsd:string" nillable="true"/>
+			<element name="embossName" type="xsd:string" nillable="true"/>
+			<element name="additionalNo" type="xsd:int" nillable="true"/>
+			<element name="dateCreated" type="xsd:date" nillable="true"/>
+			<element name="crdprogram" type="xsd:string" nillable="true"/>
+			<element name="crddesign" type="xsd:string" nillable="true"/>
+			<element name="pin" type="xsd:string" nillable="true"/>
+			<element name="refuseCheck" type="xsd:string" nillable="true"/>
+			<element name="mailShots" type="xsd:string" nillable="true"/>
+			<element name="discret" type="xsd:string" nillable="true"/>
+			<element name="userdata" type="xsd:string" nillable="true"/>
+			<element name="userdata1" type="xsd:string" nillable="true"/>
+			<element name="userdata2" type="xsd:string" nillable="true"/>
+			<element name="userdata3" type="xsd:string" nillable="true"/>
+			<element name="userdata4" type="xsd:string" nillable="true"/>
+			<element name="dlvMethod" type="xsd:string" nillable="true"/>
+			<element name="dateActivated" type="xsd:date" nillable="true"/>
+			<element name="loginID" type="xsd:string" nillable="true"/>
+			<element name="imageID" type="xsd:string" nillable="true"/>
+			<element name="renew" type="xsd:string" nillable="true"/>
+			<element name="brncode" type="xsd:string" nillable="true"/>
+			<element name="denyMCC" type="xsd:string" nillable="true"/>
+			<element name="denySvc" type="xsd:string" nillable="true"/>
+			<element name="accType" type="xsd:string" nillable="true"/>
+			<element name="CVC2" type="xsd:string" nillable="true"/>
+		</sequence>
+	</complexType>
+	<complexType name="CardApplicationRspsInfo">
+		<sequence>
+			<element name="messageID" type="xsd:int"/>
+			<element name="instCode" type="xsd:string"/>
+			<element name="txnType" type="xsd:string"/>
+			<element name="localDate" type="xsd:date"/>
+			<element name="localTime" type="xsd:long"/>
+			<element name="loginID" type="xsd:string" nillable="true"/>
+			<element name="crdDet" type="tns2:ArrayOf_tns2_CardDetailsInfo" nillable="true"/>
+			<element name="noOfCardsProduced" type="xsd:int" nillable="true"/>
+			<element name="noOfCards" type="xsd:int" nillable="true"/>
+			<element name="sysDate" type="xsd:date" nillable="true"/>
+			<element name="actionCode" type="xsd:string"/>
+		</sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns2_CardDetailsInfo">
+		<sequence>
+			<element name="CardDetailsInfo" type="tns2:CardDetailsInfo" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+    <complexType name="CardDetails_type">
+        <attribute name="href"/>
+    </complexType>
+</schema>

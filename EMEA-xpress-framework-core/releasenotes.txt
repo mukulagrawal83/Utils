@@ -1,0 +1,28 @@
+            emea-xpress-framework-core
+                Version 1.5-SNAPSHOT
+            Release Notes
+
+---------------------------------------------------------------------
+Release Notes for version 1.4
+---------------------------------------------------------------------
+
+[NEW FEATURES]
+--------------
+
+QueryBuilder dirty hack to be able to pass TAXID with a space to Profile.
+			
+			
+---------------------------------------------------------------------
+Release Notes for version 1.0
+---------------------------------------------------------------------
+
+[NEW FEATURES]
+--------------
+
+Adding new Filter to change SVC Adapter Version
+
+[CHANGES]
+--------------
+
+Refactor of dependencies in pom.xml
+

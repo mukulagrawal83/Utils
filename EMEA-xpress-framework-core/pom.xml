@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fisglobal.xpress.emea</groupId>
+        <artifactId>master-settings-pom</artifactId>
+        <version>1.4</version>
+    </parent>
+
+   <groupId>com.fisglobal.emea.xpress</groupId>
+   <artifactId>emea-xpress-framework-core</artifactId>
+   <version>1.5-SNAPSHOT</version>
+
+   <name>EMEA Xpress Framework Core</name>
+   <scm>
+      <connection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-core/trunk</connection>
+      <developerConnection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-core/trunk</developerConnection>
+      <url>https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-core/trunk</url>
+   </scm>
+    <properties>
+        <xpress.core.version>4.0.0</xpress.core.version>
+        <jefBoc.version>2.2.14</jefBoc.version>
+        <testng.version>6.8.7</testng.version>
+        <jmockit.version>0.999.19</jmockit.version>
+
+        <maven-shade-plugin.version>2.1</maven-shade-plugin.version>
+        <maven-source-plugin.version>2.4</maven-source-plugin.version>
+    </properties>
+   <dependencies>
+      <dependency>
+         <groupId>com.fisglobal.xpress</groupId>
+         <artifactId>xpress-framework-core</artifactId>
+          <version>${xpress.core.version}</version>
+          <scope>compile</scope>
+      </dependency>
+       <dependency>
+           <groupId>com.fisglobal.xpress</groupId>
+           <artifactId>xpress-xbo-ifx20</artifactId>
+           <scope>provided</scope>
+           <version>${xpress.core.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>jef</groupId>
+           <artifactId>jefBoc</artifactId>
+           <version>${jefBoc.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>org.testng</groupId>
+           <artifactId>testng</artifactId>
+           <version>${testng.version}</version>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>com.googlecode.jmockit</groupId>
+           <artifactId>jmockit</artifactId>
+           <version>${jmockit.version}</version>
+           <scope>test</scope>
+       </dependency>
+
+       <dependency>
+           <groupId>org.apache.commons</groupId>
+           <artifactId>commons-pool2</artifactId>
+           <version>2.4.2</version>
+       </dependency>
+
+       <dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>javax.servlet-api</artifactId>
+           <version>3.1.0</version>
+           <scope>provided</scope>
+       </dependency>
+
+       <dependency>
+           <groupId>javax</groupId>
+           <artifactId>javaee-api</artifactId>
+           <version>6.0</version>
+           <scope>provided</scope>
+       </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+             <version>${maven-shade-plugin.version}</version>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+                  <configuration>
+                     <artifactSet>
+                        <includes>
+                           <include>com.fisglobal.xpress:xpress-framework-core</include>
+                        </includes>
+                     </artifactSet>
+                     <filters>
+                        <filter>
+                           <artifact>com.fisglobal.xpress:xpress-framework-core</artifact>
+                           <includes>
+                              <include>**/*</include>
+                           </includes>
+                           <excludes>
+                              <!-- Profile related legacy classes moved to separate project (connector) -->
+                              <exclude>**/*Profile*</exclude>
+                              <!-- Systematic related legacy classes to be moved to separate project (connector) -->
+                              <exclude>**/Gn*</exclude>
+                              <exclude>**/MrpcMetadata.class</exclude>
+                              <exclude>com/fnf/xes/framework/dhm/main/DHMExecuter</exclude>
+                           </excludes>
+                        </filter>
+                     </filters>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+		 <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+               <execution>
+                  <id>attach-sources</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>jar-no-fork</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>

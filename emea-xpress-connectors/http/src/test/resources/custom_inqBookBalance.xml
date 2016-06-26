@@ -1,0 +1,17 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://www.ing.com/xsd/CustomMessageHeader_003" xmlns:inq="http://www.ing.com/xsd/DNL_CORE_SavingsLegacy_001/InquireBookBalance_010">
+   <soapenv:Header>
+      <cus:CustomMessageHeader>
+        
+      </cus:CustomMessageHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <inq:InquireBookBalanceRq>
+         <inq:RqUID>00000000-1111-0000-0000-000000000000</inq:RqUID>
+         <inq:DepAcctId>
+            <inq:Country>NL</inq:Country>
+            <inq:AcctId>700000005774</inq:AcctId>
+         </inq:DepAcctId>
+         <inq:SelRangeDt></inq:SelRangeDt>
+      </inq:InquireBookBalanceRq>
+   </soapenv:Body>
+</soapenv:Envelope>

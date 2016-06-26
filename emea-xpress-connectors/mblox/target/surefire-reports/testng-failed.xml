@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="0" name="Failed suite [Command line suite]">
+  <test name="Command line test(failed)">
+    <classes>
+      <class name="com.fisglobal.xpress.emea.sms.NotificationServiceTest">
+        <methods>
+          <include name="SMSPriorityValidatorTest"/>
+          <include name="SMSRecipientNumberValidatorTest"/>
+          <include name="SMSTextValidatorTest"/>
+          <include name="SMSTextLengthValidatorTest"/>
+          <include name="ValidateSMSGlobalBlackOutTimeTest"/>
+          <include name="ValidSMSValidatorTest"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="SMSSenderIDValidatorTest"/>
+          <include name="ValidateSMSBlackOutTimeDayOverLapTest"/>
+          <include name="springTestContextAfterTestMethod"/>
+          <include name="ValidateSMSBlackOutTimeTest"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.NotificationServiceTest -->
+      <class name="com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestResultMarshallerTest">
+        <methods>
+          <include name="unmarshallString_should_unmarshall_malformed_error_result"/>
+          <include name="unmarshallString_should_unmarshall_formatting_error_result"/>
+          <include name="unmarshallString_should_unmarshall_retry"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestResultMarshallerTest -->
+      <class name="com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestMarshallerTest">
+        <methods>
+          <include name="prepareSimpleTemplate"/>
+          <include name="marshallToString_should_marshall_using_notification_request_details"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestMarshallerTest -->
+      <class name="com.fisglobal.xpress.emea.sms.mblox.messaging.connector.http.MbloxHttpClientTest">
+        <methods>
+          <include name="springTestContextBeforeTestClass"/>
+          <include name="springTestContextPrepareTestInstance"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextAfterTestMethod"/>
+          <include name="testSendNotificationRequestString3"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.mblox.messaging.connector.http.MbloxHttpClientTest -->
+      <class name="com.fisglobal.xpress.emea.sms.mblox.messaging.MbloxMessagingTest">
+        <methods>
+          <include name="sendNotification"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextAfterTestMethod"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.mblox.messaging.MbloxMessagingTest -->
+      <class name="com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestBuilderTest">
+        <methods>
+          <include name="asString_should_return_string_representation_of_request"/>
+          <include name="prepareSimpleTemplate"/>
+        </methods>
+      </class> <!-- com.fisglobal.xpress.emea.sms.mblox.notifications.NotificationRequestBuilderTest -->
+    </classes>
+  </test> <!-- Command line test(failed) -->
+</suite> <!-- Failed suite [Command line suite] -->

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+   
+   <parent>
+      <groupId>com.fisglobal.emea.xpress</groupId>
+      <artifactId>xes-parent</artifactId>
+      <version>1.0</version>
+      <relativePath />
+   </parent>
+
+   <name>EMEA Xpress IFX service util</name>
+
+   <groupId>com.fisglobal.emea.xpress</groupId>
+   <artifactId>emea-xpress-ifx-services-util</artifactId>
+   <version>1.3</version>
+
+   <properties>
+      <joda-time.version>1.6.2</joda-time.version>
+   </properties>
+   
+   <scm>
+      <connection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-ifx-services-util/trunk</connection>
+      <developerConnection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-ifx-services-util/trunk</developerConnection>
+      <url>https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-ifx-services-util/trunk</url>
+   </scm>
+   <dependencies>
+      <dependency>
+         <groupId>commons-digester</groupId>
+         <artifactId>commons-digester</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>commons-beanutils</groupId>
+         <artifactId>commons-beanutils</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>joda-time</groupId>
+         <artifactId>joda-time</artifactId>
+         <version>${joda-time.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>commons-lang</groupId>
+         <artifactId>commons-lang</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.fisglobal.xpress</groupId>
+         <artifactId>xpress-ifx-services-util</artifactId>
+         <scope>compile</scope>
+         <version>${xpress.core.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>com.fisglobal.emea.xpress</groupId>
+         <artifactId>emea-xpress-framework-core</artifactId>
+         <version>1.0</version>
+      </dependency>
+      <dependency>
+         <groupId>com.fnis.ifx.xbo</groupId>
+         <artifactId>xbo-runtime</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.fnis.ifx.xbo</groupId>
+         <artifactId>xbo-base-stubs</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.fis.xpress</groupId>
+         <artifactId>xpress-xesServices</artifactId>
+         <version>4.0.0</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.fis.xpress</groupId>
+         <artifactId>xesServicesVo</artifactId>
+         <version>4.0.0</version>
+         <scope>provided</scope>
+      </dependency>        
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>2.3</version>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+                  <configuration>
+                     <artifactSet>
+                        <includes>
+                           <include>com.fisglobal.xpress:xpress-ifx-services-util</include>
+                        </includes>
+                     </artifactSet>
+                     <filters>
+                        <filter>
+                           <artifact>com.fisglobal.xpress:xpress-ifx-services-util</artifact>
+                           <excludes>
+                              <exclude>com/fnis/xes/services/template/XCommonBusinessService.class</exclude>
+                              <exclude>com/fnis/xes/services/util/StatusHelper.class</exclude>
+                              <exclude>com/fnis/xes/services/template/XBOStatus.class</exclude>
+                              <exclude>com/fnis/xes/services/util/DateUtil.class</exclude>
+                              <exclude>com/fnis/xes/services/IdConstants.class</exclude>
+                              <exclude>com/fnis/xes/services/filter/router/OperRouter.class</exclude>                                        
+                           </excludes>
+                        </filter>
+                     </filters>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>

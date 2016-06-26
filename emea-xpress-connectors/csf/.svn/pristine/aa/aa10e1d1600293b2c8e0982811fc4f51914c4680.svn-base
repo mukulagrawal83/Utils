@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+    <bean id="CSFConnector" class="com.fisglobal.xpress.CSFConnector">
+        <property name="endPointURL" value="http://ubddevwabcsfwb1.fisclient.local:8080/axis2/services/DocumentGeneratorService"/>
+        <property name="webServiceTemplate" ref="CSF_webServiceTemplate"/>
+    </bean>
+
+    <bean id="CSF_webServiceTemplate" class="com.fisglobal.emea.springframwork.ws.core.CustomWebServiceTemplate">
+        <constructor-arg ref="CSF_soapMessageFactory"/>
+        <constructor-arg ref="customWebServiceTemplateHttpClient"/>
+        <property name="marshaller" ref="marshaller"/>
+        <property name="unmarshaller" ref="marshaller"/>
+    </bean>
+
+    <bean id="CSF_soapMessageFactory" class="org.springframework.ws.soap.axiom.AxiomSoapMessageFactory">
+        <property name="payloadCaching" value="true"/>
+        <property name="soapVersion">
+            <util:constant static-field="org.springframework.ws.soap.SoapVersion.SOAP_12"/>
+        </property>
+    </bean>
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPaths">
+            <list>
+                <value>com.csf.documentgeneratorservice</value>
+                <value>org.datacontract.schemas._2004._07.realtimeserver</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

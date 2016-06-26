@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns2="http://wsvalueobj.common.prepaid.webservices.cortex.com"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://wsvalueobj.common.prepaid.webservices.cortex.com">
+    <complexType name="RqstInfo" abstract="true">
+        <sequence>
+            <element name="ipAddress" type="xsd:string" nillable="true"/>
+        </sequence>
+    </complexType>
+    <complexType name="SecurityDetailsInfo">
+        <sequence>
+            <element name="charPos" type="xsd:int" nillable="true"/>
+            <element name="secChkID" type="xsd:long" nillable="true"/>
+            <element name="secValue" type="xsd:string" nillable="true"/>
+        </sequence>
+    </complexType>
+    <complexType name="ArrayOf_tns3_SecurityDetailsInfo">
+        <sequence>
+            <element name="SecurityDetailsInfo" type="tns2:SecurityDetailsInfo" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+</schema>

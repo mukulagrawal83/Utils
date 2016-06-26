@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fisglobal.xpress.emea</groupId>
+        <artifactId>master-settings-pom</artifactId>
+        <version>1.4</version>
+    </parent>
+
+    <name>EMEA QAS connector</name>
+    <artifactId>emea-xpress-connector-qas</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jefBoc.version>2.2.14</jefBoc.version>
+        <spring-ws-core.version>2.1.4.RELEASE</spring-ws-core.version>
+        <emea.xpress-framework-extras.version>1.9</emea.xpress-framework-extras.version>
+        <qas.schema.location>${basedir}/src/main/resources/xsd</qas.schema.location>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring-ws-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fisglobal.emea.xpress</groupId>
+            <artifactId>emea-xpress-framework-extras</artifactId>
+            <version>${emea.xpress-framework-extras.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jef</groupId>
+            <artifactId>jefBoc</artifactId>
+            <version>${jefBoc.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.13.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaDirectory>${qas.schema.location}</schemaDirectory>
+                    <generatePackage>com.fisglobal.qas</generatePackage>
+                    <schemaIncludes>
+                        <schemaInclude>QASClientSchema.xsd</schemaInclude>
+                    </schemaIncludes>
+                    <bindingIncludes>
+                        <include>domain1-bindings.xjb</include>
+                    </bindingIncludes>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

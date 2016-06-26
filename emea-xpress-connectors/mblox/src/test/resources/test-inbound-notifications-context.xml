@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:integration="http://www.springframework.org/schema/integration"
+       xmlns:jms="http://www.springframework.org/schema/integration/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd">
+
+    <import resource="common-configuration.xml"/>
+
+    <!-- Service to send text Message -->
+    <integration:channel id="notificationChannel"/>
+    <integration:service-activator id="notificationServiceActivator" input-channel="notificationChannel"
+                                   output-channel="notificationProcessChannel"
+                                   ref="notificationService" method="sendSMS"/>
+
+    <!-- Channel to retrieve the message and send it to Notification Queue -->
+    <integration:channel id="notificationProcessChannel"/>
+    <jms:outbound-channel-adapter channel="notificationProcessChannel" destination="notificationProcess"
+                                  explicit-qos-enabled="true" message-converter="converter">
+    </jms:outbound-channel-adapter>
+    <bean id="converter" class="com.fisglobal.xpress.emea.notification.NotificationMessageConverter"/>
+    <!-- Out bound queue -->
+
+    <integration:channel id="notificationProcessOutChannel"/>
+    <jms:inbound-channel-adapter id="jmsInforQueue" destination="notificationProcess"
+                                 channel="notificationProcessOutChannel" extract-payload="false"
+                                 selector="blackOut">
+        <integration:poller fixed-rate="2000" max-messages-per-poll="1000"/>
+    </jms:inbound-channel-adapter>
+
+    <jms:outbound-channel-adapter channel="notificationProcessOutChannel" destination="notificationQueue"
+                                  explicit-qos-enabled="true"/>
+
+</beans>

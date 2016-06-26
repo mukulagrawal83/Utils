@@ -1,0 +1,43 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fis="FISNgSystemMonitorRqst" 
+xmlns:fis1="FisCommonRqstHdr" xmlns:fis2="FISNgCacheMonitorRqst" xmlns:fis3="FISNgConfigMonitorRqst" 
+xmlns:fis4="FISNgConfigMonitorRqst">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fis:NgSystemSupervisorRqst>
+        <fis1:RqstHdr>
+            <fis1:RqstHdrVer>2.0.0</fis1:RqstHdrVer>
+            <fis1:MsgUuid>c399df90-cfe2-456b-856e-a1151baa1c2c</fis1:MsgUuid>
+            <fis1:SrcId>SEP123</fis1:SrcId>
+            <fis1:LclPref>en-US</fis1:LclPref>
+            <fis1:Sec>
+               <fis1:BasicAuthen>
+                  <fis1:UsrId>w840275</fis1:UsrId>
+                  <fis1:Pswrd>x2C#V$b5</fis1:Pswrd>
+               </fis1:BasicAuthen>
+            </fis1:Sec>
+            <fis1:ServPrmtrsLst>
+                <fis1:ServPrmtrs>
+                  <fis1:FeId>000</fis1:FeId>
+                  <fis1:ServId>SystemMonitor</fis1:ServId>
+                  <fis1:ServVer>v1.0.0</fis1:ServVer>
+                  <fis1:ApplId>XpressNG</fis1:ApplId>
+               </fis1:ServPrmtrs>
+            </fis1:ServPrmtrsLst>
+         </fis1:RqstHdr>
+         <fis:RqstBody>
+           <fis:MonitorLst>
+               <fis:Monitor>
+                  <fis:Name>SystemInfo</fis:Name>
+          <fis:SystemInfoType>Instance</fis:SystemInfoType>
+               </fis:Monitor>
+               <fis:Monitor>
+                  <fis:Name>SystemInfo</fis:Name>
+          <fis:SystemInfoType>Build</fis:SystemInfoType>
+               </fis:Monitor> 
+                        
+         </fis:MonitorLst>
+         </fis:RqstBody>
+      </fis:NgSystemSupervisorRqst>
+   </soapenv:Body>
+</soapenv:Envelope>
+

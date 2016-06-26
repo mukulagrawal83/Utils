@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>com.fisglobal.emea.xpress</groupId>
+      <artifactId>xes-parent</artifactId>
+      <version>1.0</version>
+      <relativePath />
+   </parent>
+
+   <groupId>com.fisglobal.emea.xpress</groupId>
+   <artifactId>emea-xpress-framework-extras</artifactId>
+   <version>LRE-trunk-SNAPSHOT</version>
+
+   <name>EMEA Xpress Framework Extras</name>
+   <scm>
+      <connection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-extras/trunk</connection>
+      <developerConnection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-extras/trunk</developerConnection>
+      <url>https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-framework-projects/EMEA-xpress-framework-extras/trunk</url>
+   </scm>
+   <properties>
+      <xes.schema15.version>4.1.0.20130124</xes.schema15.version>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>com.fisglobal.emea.xpress</groupId>
+         <artifactId>emea-xpress-framework-core</artifactId>
+         <version>1.0</version>
+      </dependency>
+
+      <dependency>
+         <groupId>com.fisglobal.emea.xpress</groupId>
+         <artifactId>emea-xpress-ifx-services-util</artifactId>
+         <version>1.0</version>
+      </dependency>
+      
+      <dependency>
+         <groupId>com.fnis.ifx.xbo</groupId>
+         <artifactId>xbo-runtime</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>com.fnis.ifx.xbo</groupId>
+         <artifactId>xbo-base-stubs</artifactId>
+         <scope>provided</scope>
+      </dependency>
+        
+      <dependency>
+         <groupId>com.fisglobal.emea</groupId>
+         <artifactId>xmlHelpers</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>commons-beanutils</groupId>
+         <artifactId>commons-beanutils</artifactId>
+         <version>1.8.3</version>
+      </dependency>
+
+      <dependency>
+         <groupId>com.fis.xpress</groupId>
+         <artifactId>xesServicesVo</artifactId>
+         <version>${xes.schema15.version}</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-jdbc</artifactId>
+         <version>3.2.6.RELEASE</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.testng</groupId>
+         <artifactId>testng</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+   </dependencies>
+
+
+   <build>
+       <resources>
+           <resource>
+               <directory>.</directory>
+               <includes>
+                   <include>RELEASE_LOG.TXT</include>
+               </includes>
+           </resource>
+       </resources>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.2</version>
+            <configuration>
+               <source>1.5</source>
+               <target>1.5</target>
+               <encoding>UTF-8</encoding>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+               <execution>
+                  <id>attach-sources</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>jar-no-fork</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>2.5</version>
+          </plugin>
+      </plugins>
+   </build>
+</project>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:integration="http://www.springframework.org/schema/integration"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+			http://www.springframework.org/schema/task 
+			http://www.springframework.org/schema/task/spring-task-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <!-- mblox mblox / SMS sending beans -->
+    <bean id="baseMbloxConnector" class="com.fisglobal.xpress.emea.mblox.BaseMbloxConnector">
+        <property name="mbloxClient" ref="mbloxHttpClient"/>
+        <property name="mbloxCredentials" ref="mbloxCredentials"/>
+        <property name="mbloxProtocol" ref="baseMbloxProtocol"/>
+    </bean>
+
+    <bean id="mbloxCredentials" class="com.fisglobal.xpress.emea.mblox.MbloxCredentials">
+        <property name="partnerName" value="${mblox.partnerName}"/>
+        <property name="partnerPassword" value="${mblox.partnerPassword}"/>
+        <property name="profileId" value="${mblox.profileId}"/>
+    </bean>
+
+    <bean id="baseMbloxProtocol" class="com.fisglobal.xpress.emea.mblox.BaseMbloxProtocol">
+        <constructor-arg ref="defaultNotificationRequestTemplate"/>
+    </bean>
+
+    <bean id="defaultNotificationRequestTemplate"
+          class="com.fisglobal.xpress.emea.mblox.DefaultNotificationRequestTemplate">
+        <constructor-arg value="NotificationRequestTemplate.xml"/>
+    </bean>
+
+    <bean id="mbloxHttpClient" class="com.fisglobal.xpress.emea.mblox.MbloxHttpClient">
+        <property name="mbloxUris">
+            <list>
+                <value>${mblox.serverURL}</value>
+            </list>
+        </property>
+        <property name="restTemplate" ref="xpressDefaultRestTemplate"/>
+    </bean>
+
+    <bean id="notificationService" class="com.fisglobal.xpress.emea.mblox.NotificationServiceImpl">
+        <property name="globalBlackOutTime" ref="globalBlackOutTime"/>
+    </bean>
+
+    <!-- default Global blackout time-->
+    <bean id="globalBlackOutTime" class="com.fisglobal.xpress.emea.mblox.BlackOutTime">
+        <constructor-arg index="0" value="21:00"/>
+        <constructor-arg index="1" value="23:00"/>
+    </bean>
+
+    <!-- MQ Beans -->
+    <bean id="mqConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jms/mqconnectionFactory"/>
+        <property name="resourceRef" value="false"/>
+    </bean>
+    <bean id="destinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver">
+        <property name="fallbackToDynamicDestination" value="true"/>
+    </bean>
+    <bean id="txManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="mqConnectionFactory"/>
+    </bean>
+
+
+
+    <!-- Step 1 -->
+    <!-- Channel to get message to send SMS from different components -->
+    <integration:channel id="notificationChannel"/>
+
+    <!-- Bean to send message in MQ -->
+    <integration:service-activator id="smsNotificationServiceActivator" input-channel="notificationChannel"
+                                   output-channel="notificationProcessChannel"
+                                   ref="notificationService" method="sendSMS"/>
+    <integration:channel id="notificationProcessChannel"/>
+    <int-jms:outbound-channel-adapter channel="notificationProcessChannel" connection-factory="mqConnectionFactory"
+                                      destination-name="jms/notificationProcess"
+                                      destination-resolver="destinationResolver"
+                                      explicit-qos-enabled="true" message-converter="converter"/>
+    <bean id="converter" class="com.fisglobal.xpress.emea.mblox.NotificationMessageConverter"/>
+    <!-- Step 2 -->
+    <!-- Filter message based on blackout periods and send it to next queue  -->
+    <integration:inbound-channel-adapter ref="smsToBeSentPollingSource" channel="notificationProcessOutChannel">
+        <integration:poller fixed-rate="2000" max-messages-per-poll="100"/>
+
+    </integration:inbound-channel-adapter>
+
+    <integration:channel id="notificationProcessOutChannel"/>
+
+    <int-jms:outbound-channel-adapter channel="notificationProcessOutChannel" connection-factory="mqConnectionFactory"
+                                      destination-resolver="destinationResolver"
+                                      destination-name="jms/notificationQueue" explicit-qos-enabled="true"/>
+
+    <bean id="smsToBeSentPollingSource"
+          class="com.fisglobal.xpress.jms.JmsDestinationPollingSourceWithDynamicSelector">
+        <constructor-arg ref="smsToBeSentPollingJmsTemplate"/>
+        <property name="destinationName" value="jms/notificationProcess"/>
+        <property name="messageSelectorProvider">
+            <bean class="com.fisglobal.xpress.emea.mblox.BlackOutPeriodMessageSelector"/>
+        </property>
+    </bean>
+
+    <bean id="smsToBeSentPollingJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="mqConnectionFactory"/>
+        <property name="destinationResolver" ref="destinationResolver"/>
+        <property name="explicitQosEnabled" value="true"/>
+    </bean>
+    <!-- Step 3 -->
+    <!-- This is JMS listener to get message from queue and send it to mBlox -->
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="mqConnectionFactory"/>
+        <property name="destinationName" value="jms/notificationQueue"/>
+        <property name="destinationResolver" ref="destinationResolver"/>
+        <property name="messageListener" ref="messageListener"/>
+        <property name="transactionManager" ref="txManager"/>
+        <property name="sessionTransacted" value="true"/>
+        <property name="taskExecutor" ref="mBloxTaskExecutor"/>
+        <property name="autoStartup" value="${xes.services.mblox.enable:true}"/>
+    </bean>
+
+    <bean id="messageListener" class="com.fisglobal.xpress.emea.mblox.MbloxMessageListener">
+        <property name="sleepTimeAfterFailure" value="3000"/>
+        <property name="maxRetryForMessage" value="${xpress.mblox.maxretry:20}"/>
+    </bean>
+    <!-- Thread pool to get message and send it to mblox -->
+    <task:executor id="mBloxTaskExecutor" pool-size="1-50" keep-alive="120" queue-capacity="500"/>
+</beans>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <context:annotation-config/>
+
+    <!-- Config properties -->
+    <context:property-placeholder location="classpath:httpConnectionConfig.properties,
+									          classpath:httpProxyConfig.properties,
+									          classpath:mbloxCredentials.properties"
+                                  ignore-unresolvable="true"/>
+
+    <bean id="baseMbloxConnector" class="com.fisglobal.xpress.emea.mblox.BaseMbloxConnector">
+        <property name="mbloxClient" ref="mbloxHttpClient"/>
+        <property name="mbloxCredentials" ref="mbloxCredentials"/>
+        <property name="mbloxProtocol" ref="baseMbloxProtocol"/>
+    </bean>
+
+    <bean id="mbloxCredentials" class="com.fisglobal.xpress.emea.mblox.MbloxCredentials">
+        <property name="partnerName" value="${partnerName}"/>
+        <property name="partnerPassword" value="${partnerPassword}"/>
+        <property name="profileId" value="${profileId}"/>
+    </bean>
+
+    <bean id="baseMbloxProtocol" class="com.fisglobal.xpress.emea.mblox.BaseMbloxProtocol">
+        <constructor-arg ref="defaultNotificationRequestTemplate"/>
+    </bean>
+
+    <bean id="defaultNotificationRequestTemplate"
+          class="com.fisglobal.xpress.emea.mblox.DefaultNotificationRequestTemplate">
+        <!-- IMPORTANT: this file must be in classpath! -->
+        <constructor-arg value="NotificationRequestTemplate.xml"/>
+    </bean>
+
+    <bean id="mbloxHttpClient" class="com.fisglobal.xpress.emea.mblox.MbloxHttpClient">
+        <property name="mbloxUris">
+            <list>
+                <value>http://xml13.mblox.com:8180/send</value>
+                <value>http://xml14.mblox.com:8180/send</value>
+            </list>
+        </property>
+        <property name="restTemplate" ref="mbloxRestTemplate"/>
+    </bean>
+
+
+    <bean id="mbloxRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <!--<constructor-arg ref="proxiedHttpClientRequestFactory"/>-->
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

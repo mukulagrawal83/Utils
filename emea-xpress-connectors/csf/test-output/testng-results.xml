@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="2606" started-at="2015-10-19T13:05:35Z" finished-at="2015-10-19T13:05:38Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="2606" started-at="2015-10-19T13:05:35Z" finished-at="2015-10-19T13:05:38Z">
+      <class name="com.fnis.xes.framework.CSFConnectorTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="31" started-at="2015-10-19T15:05:35Z" finished-at="2015-10-19T15:05:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="1233" started-at="2015-10-19T15:05:36Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-10-19T15:05:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-10-19T15:05:37Z" finished-at="2015-10-19T15:05:37Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.fnis.xes.framework.CSFConnectorTest.testGenerateDocument() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testGenerateDocument()[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="testGenerateDocument" duration-ms="1341" started-at="2015-10-19T15:05:37Z" finished-at="2015-10-19T15:05:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGenerateDocument -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-10-19T15:05:38Z" finished-at="2015-10-19T15:05:38Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.fnis.xes.framework.CSFConnectorTest.testGenerateDocument() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.fnis.xes.framework.CSFConnectorTest@76f2b07d]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-10-19T15:05:38Z" finished-at="2015-10-19T15:05:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.fnis.xes.framework.CSFConnectorTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

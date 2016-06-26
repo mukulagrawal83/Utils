@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+	<parent>
+        <groupId>com.fisglobal.xpress.emea</groupId>
+        <artifactId>master-settings-pom</artifactId>
+        <version>1.4</version>
+    </parent>
+  
+  <name>EMEA HTTP connector</name>
+  <artifactId>emea-xpress-connector-http</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
+  
+   <scm>
+       <connection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-connectors/http/trunk</connection>
+       <developerConnection>scm:svn:https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-connectors/http/trunk</developerConnection>
+       <url>https://emeasvn.fnfis.com/svn/main/Library/RegionEurope/Xpress/EMEA-xpress-connectors/http/trunk</url>
+   </scm>
+    
+  <properties>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       <spring-ws-core.version>2.1.4.RELEASE</spring-ws-core.version>
+   </properties>
+    
+  <dependencies>
+      <dependency>
+           <groupId>org.apache.httpcomponents</groupId>
+           <artifactId>httpclient</artifactId>
+           <version>4.3.6</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpcore</artifactId>
+          <version>4.4</version>
+      </dependency>
+      <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+      </dependency>
+      <dependency>
+           <groupId>commons-io</groupId>
+           <artifactId>commons-io</artifactId>
+           <version>2.2</version>
+       </dependency>
+       <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring-ws-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.trojanbug.spring</groupId>
+            <artifactId>spring-power-utils</artifactId>
+            <version>0.37</version>
+        </dependency>
+       <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.7</version>
+            <scope>test</scope>
+        </dependency>
+  </dependencies>
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>attach-sources</id>
+                      <goals>
+                          <goal>jar</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>attach-javadocs</id>
+                      <goals>
+                          <goal>jar</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
+</project>
