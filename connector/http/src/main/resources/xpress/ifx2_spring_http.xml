@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    
+    <bean id="httpClientFactory" class="com.fisglobal.emea.common.http.HttpClientFactory" />
+    
+    <bean id="xpressWebServiceTemplateHttpClient" factory-bean="httpClientFactory" factory-method="buildHttpClient" scope="prototype">
+        <constructor-arg name="config" ref="httpConfig" />
+    </bean>
+
+        
+    <bean id="httpConfig" class="com.fisglobal.emea.common.http.HttpClientConfig">
+        <property name="contentType" value="${xpressWebServiceTemplate.contentType:text/xml;charset=utf-8}" />
+        <property name="maxConnections" value="${xpressWebServiceTemplate.maxConnections:100}" />
+        <property name="acceptEncoding" value="${xpressWebServiceTemplate.acceptEncoding}"/>
+        <property name="connectionTimeout" value="${xpressWebServiceTemplate.connectionTimeout:5000}"/>
+        <property name="readTimeout" value="${xpressWebServiceTemplate.readTimeout:10000}" />
+        <property name="maxConnectionIdleTime" value="${xpressWebServiceTemplate.maxConnectionIdleTime:-1}"/>
+        <property name="maxConnectionAge" value="${xpressWebServiceTemplate.maxConnectionAge:30000}" />
+        <property name="useStaleConnectionCheck" value="${xpressWebServiceTemplate.useStaleConnectionCheck:true}" />
+        
+        <property name="bypassProxy" value="${xpressWebServiceTemplate.bypassProxy:false}"/>
+        <property name="proxy" value="${xpressWebServiceTemplate.proxy}"/>
+        <property name="proxyUser" value="${xpressWebServiceTemplate.proxyUser}" />
+        <property name="proxyPassword" value="${xpressWebServiceTemplate.proxyPassword}"/>
+        <property name="bypassProxyPatterns" value="${xpressWebServiceTemplate.bypassProxyPatterns}" />
+        
+        <property name="keyStore" value="${xpressWebServiceTemplate.keyStore}" />
+        <property name="keyStorePswd" value="${xpressWebServiceTemplate.keyStorePswd}" />
+        <property name="keyStoreCertPswd" value="${xpressWebServiceTemplate.keyStoreCertPswd}" />
+        
+        <property name="trustStore" value="${xpressWebServiceTemplate.trustStore}" />
+        <property name="trustStorePswd" value="${xpressWebServiceTemplate.trustStorePswd}" />
+        <property name="trustStoreCertSelfSigned" value="${xpressWebServiceTemplate.trustStoreCertSelfSigned:false}" />
+    </bean>
+    
+    <bean id="xpressHtpComponentsClientHttpRequestFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+        <property name="httpClient" ref="xpressWebServiceTemplateHttpClient" />
+    </bean>
+
+</beans>
