@@ -1,3 +1,0 @@
-# HTTP(S) proxy settings - used do connect to external services
-httpProxyHost			=	amsxpress01.fnfis.com
-httpProxyPort			=	3128
